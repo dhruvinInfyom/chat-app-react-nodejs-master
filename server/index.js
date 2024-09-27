@@ -34,8 +34,8 @@ const server = app.listen(process.env.PORT, () =>
 );
 const io = socket(server, {
   cors: {
-    origin: ["https://66f4fd8f9656ac6dbc583306--charming-bunny-b6774f.netlify.app", "http://192.168.10.74:5000", "http://localhost:3000"],
-    // credentials: true,
+    origin: ["https://66f4fd8f9656ac6dbc583306--charming-bunny-b6774f.netlify.app", "http://192.168.10.74:5000", "http://localhost:3000", "https://db62-219-91-180-233.ngrok-free.app"],
+    credentials: true,
   },
 });
 
@@ -53,3 +53,28 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+
+
+
+// const { google } = require('googleapis');
+
+// // Load service account credentials
+// const SERVICE_ACCOUNT = require('./notification-cf86e-firebase-adminsdk-oplmi-7debcde1f8.json');
+
+// // Create an OAuth2 client
+// const client = new google.auth.JWT(
+//   SERVICE_ACCOUNT.client_email,
+//   null,
+//   SERVICE_ACCOUNT.private_key,
+//   ['https://www.googleapis.com/auth/firebase.messaging']
+// );
+
+// // Get the token
+// client.authorize((err, tokens) => {
+//   if (err) {
+//     console.error('Error getting OAuth2 token:', err);
+//     return;
+//   }
+//   console.log('OAuth2 Token:', tokens.access_token);
+// });

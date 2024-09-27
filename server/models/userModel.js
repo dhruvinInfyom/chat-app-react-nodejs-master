@@ -27,6 +27,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  deviceToken:{
+    type:String,
+  }
 });
 
 module.exports = mongoose.model("Users", userSchema);

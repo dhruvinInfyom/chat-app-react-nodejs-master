@@ -26,7 +26,7 @@ export default function Contacts({ contacts, changeChat }) {
             <h3>snappy</h3>
           </div>
           <div className="contacts">
-            {contacts.map((contact, index) => {
+            {contacts.length > 0 && contacts?.map((contact, index) => {
               return (
                 <div
                   key={contact._id}

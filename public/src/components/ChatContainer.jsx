@@ -10,44 +10,7 @@ export default function ChatContainer({ currentChat, socket, firebaseToken,  }) 
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const oAuth = "ya29.c.c0ASRK0GYJCyvOrXjZECA6x-JTgaJ5zcsBh-v_qVxaGq0ltuWp29UXBPp9DtIyGlo5z0E4Gfsq4VEymjomevFdvhCpnHZsm1h85zcw5Rbo-au-Ua7PISLmG38KkCE8WXLuwit03Er4fpeg62du4hIGko_-Edzh7-uqRbAPn9GAeTeIrvuZE4mxSj0qUCHiIwnjIbSfRG5MSxxufR7v_2Sehe5--70TXFGHxB2PNY-wPMRFQAGczNODHPQm33tbJuYfDgilFbnGPXOJa4jdGSxKqWbXFhWXIHUe59L83nU5G_EH9dm8qSeCqmlRvPslg_Y7TiLzJ0aMXHSVSePMarkunLQX-iIlHSkMPIDU3qUljdpzunKPiY1XaupLG385An1lz8RxYt-uWFVzXJFamRyYV6SnlvocVcyWFt-6eebS7fj65M0bcuoQldMhRg5v1k83les8r_O-S6pb89S6wSq82wvpaXFsYfUot7BWXf9vnSFJzhtU9FUWXRgvg6_sB8xVIbbg6Y4652Ut7OW9ph7OfesocZfo5vOFmxJ2mc1ZfjmFev361ns492uo9cFZl5mg0j4utggw_x_bsFfJwdxgpjU2Oiyp1Rx4iqhXxVrrOJXsu8ZZUxxQqz7-q89yVvj8tn6pd9dstzr6oq05Wla0pvf8OlO7kv1u9RavFR3ZWIWoe4Jf9QgQj7QyIOpSJXbauoddn_1Fku-USU4gaqfaW14y4et3Q5f44xFlwmZ8IsZ-U-RSteVV85-97JujuI7hqR5tkXi1Bo56RnMU9keurh23l9m0U49Z3QOVd-3gaf15vRV_k1Ww8nZuMklyy9jkJ1VS5872i6ZBsn5j6ddJ_d0l8O7gJUyQ9ZolgjY34hw2QB-7Rsmqd27M9doyjl9jf_qdUc7vaFRBw2yvuVpzxnm1tBmJdxk8g-IWoz8c2l6ZWfnIwUVyggrQBXMlVvueW8veFooZ0p6cZWnv3ke4UnnWbe20S07y0bv-QrkSjpf2wfqx2drI5nf"
-
-
-  const sendNotification = async (accessToken, message) => {
-    const url =
-      "https://fcm.googleapis.com/v1/projects/notification-cf86e/messages:send";
-
-    const body = {
-      message: {
-        token: firebaseToken,
-        notification: {
-          title: message.title,
-          body: message.body,
-        },
-      },
-    };
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${oAuth}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log("Notification sent successfully:", data);
-    } catch (error) {
-      console.error("Failed to send notification:", error);
-    }
-  };
-
+  const oAuth = "ya29.c.c0ASRK0GbhxBuUNQaNhjcYt6MxYTOsAP0u0Iemt6L1ZblgLZ7O22iODtrLp6WJ_LOKFjN-t7fxHpO1LBb4-LP4qDBjqM0-zwvbIC4ww_d4iZ7Yw6oMAJa_dwCjs70CzKNZM794IF9XDxtWAOfgSR6T119kvmtd7SJQmYCsTOOmCBhu8MGFbtsvJYy8yjYdJkPaXDTSyIUvdRPNjVy81z5sh_icOrfQJaHacDcg-EX81tnMPgpoiRe15fu-6hNe_wSK_hgqQEXYu1YydB0Ogt2heu_oZctxmsRhc9rnre8w6VuyCUJvnXrsDT_me0wCyy2Zgko5y3vw2xbtNuLqxJ7D07-7iQ5xZTEJ96fjDMFmWpqbdLcTsIIoTecdKgT387Pra1swbpgrIS1hZnWs2-VfFM9oZQ44sQxJjt7k-q5hX0jQRknO-rMY5s-O7pUbU7wv3jrIpaFojoJ3uxcrOsJY-a7lS7R1tj177ZVdqxujt1UR6c4n_Mn6R5zuMv9axqajR-Ycyc6oX4O6gZ_WZYineUjiZdvOc6s931Vf-V1akq1ZwydchVYQp2qqSpxbxjm-U8l9-BgZwYVRjUOZRk2XXlmFuiOfwYa5e0kB83-lptWMq4hBvow16fSagIaUyscnV0qFJtO_M1xYt_b9wVq_qrv-0z4xI9-m6zqzawQyBazqFhsjkkZUxzrSypbz3uzXs2RZke7RSOjcr01nfWBlnm91fanu7c5z8e5b6IRb7fhZfXoUsOivanuzyxcad-hW6wlZuyk17yQ-5YXfdVcZghn1zn57o8WZryFBvnlu7jYJUneF-7dJW4Msu04g2nYBw6UjZ_plR3F4OUft9fO5vO_cg5whfO1RqW-YdfpSh7Fqggz4zQcs4VBkQenx0Iec3Vvm1__zU2SuRzpSRpXSieOysSIYO4os4XBg6pkxF5YIFMaBsdw3ZVYhc1i40rY8_eyzabrWSZe6n55gp5dSRVgRZR8j-JYSR29kx_Bfs3i23J8kggF6rJ6"
 
   useEffect(async () => {
     const data = await JSON.parse(
@@ -91,7 +54,7 @@ export default function ChatContainer({ currentChat, socket, firebaseToken,  }) 
 
   const body = {
     message: {
-      token: firebaseToken,
+      token: currentChat.deviceToken,
       notification: {
         title: currentChat.username,
         body: msg,

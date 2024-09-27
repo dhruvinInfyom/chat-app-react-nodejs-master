@@ -19,7 +19,7 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.register = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, deviceToken } = req.body;
     const usernameCheck = await User.findOne({ username });
     if (usernameCheck)
       return res.json({ msg: "Username already used", status: false });
@@ -31,6 +31,7 @@ module.exports.register = async (req, res, next) => {
       email,
       username,
       password: hashedPassword,
+      deviceToken,
     });
     delete user.password;
     return res.json({ status: true, user });
@@ -46,8 +47,9 @@ module.exports.getAllUsers = async (req, res, next) => {
       "username",
       "avatarImage",
       "_id",
+      "deviceToken",
     ]);
-    return res.json(users);
+    return res.json({users});
   } catch (ex) {
     next(ex);
   }

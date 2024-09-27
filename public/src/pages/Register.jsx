@@ -6,9 +6,12 @@ import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerRoute } from "../utils/APIRoutes";
+import { getFirebaseToken } from "../firebase";
 
 export default function Register() {
   const navigate = useNavigate();
+  const [firebaseToken, setFirebaseToken] = useState("");
+
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -27,6 +30,20 @@ export default function Register() {
     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
       navigate("/");
     }
+  }, []);
+
+  const handleGetFirebaseToken = () => {
+    getFirebaseToken()
+      .then((firebaseToken) => {
+        console.log("Firebase token: ", firebaseToken);
+        setFirebaseToken(firebaseToken);
+      })
+      .catch((err) =>
+        console.error("An error occured while retrieving firebase token. ", err)
+      );
+  };
+  useEffect(() => {
+    handleGetFirebaseToken();
   }, []);
 
   const handleChange = (event) => {
@@ -69,6 +86,7 @@ export default function Register() {
         username,
         email,
         password,
+        deviceToken: firebaseToken,
       });
 
       if (data.status === false) {

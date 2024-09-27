@@ -1,4 +1,4 @@
-export const host = "http://192.168.10.74:5000";
+export const host = "https://971f-219-91-180-233.ngrok-free.app";
 export const loginRoute = `${host}/api/auth/login`;
 export const registerRoute = `${host}/api/auth/register`;
 export const logoutRoute = `${host}/api/auth/logout`;

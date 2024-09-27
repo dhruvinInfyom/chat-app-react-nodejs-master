@@ -16,7 +16,6 @@ export default function Chat() {
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
-  console.log("🚀 ~ Chat ~ currentChat:", currentChat)
   const [currentUser, setCurrentUser] = useState(undefined);
   const [firebaseToken, setFirebaseToken] = useState("");
 
@@ -66,8 +65,12 @@ export default function Chat() {
   useEffect(async () => {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
-        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-        setContacts(data.data);
+        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`, {
+          headers: {
+            "content-type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          }});
+        setContacts(data?.data?.users);
       } else {
         navigate("/setAvatar");
       }
